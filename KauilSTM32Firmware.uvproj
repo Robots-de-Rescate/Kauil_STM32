@@ -467,11 +467,6 @@
               <FilePath>.\Source\Orientation\stm32f3_discovery_lsm303dlhc.c</FilePath>
             </File>
             <File>
-              <FileName>imu_devs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Source\Orientation\imu_devs.c</FilePath>
-            </File>
-            <File>
               <FileName>imu_util.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Source\Orientation\imu_util.c</FilePath>

@@ -52,6 +52,9 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 void USBWakeUp_IRQHandler(void);
 void USB_FS_WKUP_IRQHandler(void);
+uint32_t LSM303DLHC_TIMEOUT_UserCallback(void);
+uint32_t L3GD20_TIMEOUT_UserCallback(void);
+
 
 #ifdef __cplusplus
 }

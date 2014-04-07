@@ -200,5 +200,13 @@ void USBWakeUp_IRQHandler(void)
   * @}
   */ 
 
+uint32_t LSM303DLHC_TIMEOUT_UserCallback(void)
+{
+  return 0;
+}
 
+uint32_t L3GD20_TIMEOUT_UserCallback(void)
+{
+  return 0;
+}
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
