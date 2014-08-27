@@ -14,6 +14,7 @@
 *.Vishwas
 *.swp
 *.uvgui*
+*.uvopt
 
 Output/
 *~
