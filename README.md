@@ -36,7 +36,7 @@ Other generated files were omitted because they are automatically generated and 
 
 Setting up a development environment
 -----------------------------------------------
-This section describes what is the basic configuration that has to be made in to get developing code for the project. Although some familiarity with Keil and the STM32F3 development environment is expected, it's not a requirement.
+This section describes the basic configuration that has to be made to start developing code for the project. Although some familiarity with Keil and the STM32F3 development environment is expected, it's not a requirement.
  
 ###Windows
 
@@ -72,6 +72,6 @@ This section describes what is the basic configuration that has to be made in to
 - Finally on the Utilities tab select the ST-Link Debugger, then click Ok:
 ![ST-Link Debugger](README.img/SetupWindows7.jpg)
 
-Now you should be able to build and download the latest firmware to the STM32, the file KauilSTM32Firmware.uvopt should store the debugging configuration for the next time.
+Now you should be able to build, download and debug the latest firmware on the STM32, by using the respective buttons on the main toolbar. The file KauilSTM32Firmware.uvopt should store the debugging configuration for the next time.
 
  [1]: https://www.keil.com/demo/eval/armv4.htm
