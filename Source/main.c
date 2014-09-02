@@ -14,7 +14,6 @@ int main( void )
 	
 	float *heading_ptr;
 	float heading;
-	
 	Set_System();
   USB_init();
 	
@@ -25,8 +24,8 @@ int main( void )
   Demo_CompassConfig();
 	
   while (1)
-  {
-		sendROSData('a',12,12.1);
+	{
+		sendROSData('a',12,12.01);
   }
 }
 

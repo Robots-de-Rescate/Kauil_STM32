@@ -1,24 +1,24 @@
 /* Includes ------------------------------------------------------------------*/
 #include "ROS_USB.h"
 
-
 /* Variables ---------------------------------------------------------*/
 extern __IO uint8_t Receive_Buffer[64];
 extern __IO  uint32_t Receive_length ;
 extern __IO  uint32_t Send_length ;
 uint32_t packet_sent = 0;
 uint32_t packet_receive = 0;
-uint8_t *ROSDataValuesPtr;
 
 
-struct ROSDataDef //Definition of the structure for sending the data to ROS 
+struct __attribute__ ((__packed__)) ROSDataDef //Definition of the structure for sending the data to ROS 
 {
 			char ID;
 			int data1;
 			float data2;
-			
-};
+	
+} __attribute__ ((aligned));
 
+//The attribute packed specifies that each member of the structure is placed to minimize the memory required(members are packed closely together)
+//The attribute aligned without argument is for specifying a minimum alignment to the sum of all the variables
 /* Private functions ---------------------------------------------------------*/
 /*******************************************************************************
 * Function Name  : Initialization of the USB (USB_init)
@@ -41,17 +41,18 @@ void USB_init(void){
 
 void sendROSData(char ID, int data1, float data2)
 	{
-		struct ROSDataDef ROSDataValues;//Initialization of the srtructure
-		ROSDataValuesPtr = (uint8_t *) &ROSDataValues; //Asignation of the structure pointer
+		struct ROSDataDef ROSDataValues;//Initialization of the structure
+		struct ROSDataDef *ROSDataValuesPtr;
+		ROSDataValuesPtr = &ROSDataValues;
 		
-		//Asignment of the values of the function's arguments on the struct
+		//Asignment of the values of each member of the struct
 		ROSDataValues.ID = ID;
 		ROSDataValues.data1 = data1;
 		ROSDataValues.data2 = data2;
 		
 		if(bDeviceState == CONFIGURED)
 		{
-			CDC_Send_DATA(ROSDataValuesPtr,9); // 9 bytes is the length of the struct
+			CDC_Send_DATA((uint8_t*)ROSDataValuesPtr,9); // 9 bytes is the length of the struct
 		}
 	}
 	
