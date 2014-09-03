@@ -13,7 +13,8 @@ struct __attribute__ ((__packed__)) ROSDataDef //Definition of the structure for
 {
 			char ID;
 			int data1;
-			float data2;
+			int data2;
+			float data3;
 	
 } __attribute__ ((aligned));
 
@@ -39,7 +40,7 @@ void USB_init(void){
 * Return         : None.
 *******************************************************************************/
 
-void sendROSData(char ID, int data1, float data2)
+void sendROSData(char ID, int data1, int data2, float data3)
 	{
 		struct ROSDataDef ROSDataValues;//Initialization of the structure
 		struct ROSDataDef *ROSDataValuesPtr;
@@ -49,10 +50,11 @@ void sendROSData(char ID, int data1, float data2)
 		ROSDataValues.ID = ID;
 		ROSDataValues.data1 = data1;
 		ROSDataValues.data2 = data2;
+		ROSDataValues.data3 = data3;
 		
 		if(bDeviceState == CONFIGURED)
 		{
-			CDC_Send_DATA((uint8_t*)ROSDataValuesPtr,9); // 9 bytes is the length of the struct
+			CDC_Send_DATA((uint8_t*)ROSDataValuesPtr,13); // 9 bytes is the length of the struct
 		}
 	}
 	

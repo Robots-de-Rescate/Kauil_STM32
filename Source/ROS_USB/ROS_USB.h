@@ -6,4 +6,4 @@
 
 /* Exported functions ------------------------------------------------------- */
 void USB_init(void);
-void sendROSData(char ID, int data1, float data2);
+void sendROSData(char ID, int data1, int data2, float data3);

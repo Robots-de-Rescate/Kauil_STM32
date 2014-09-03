@@ -25,7 +25,7 @@ int main( void )
 	
   while (1)
 	{
-		sendROSData('a',12,12.01);
+		sendROSData('a',12,12,12.01);
   }
 }
 
