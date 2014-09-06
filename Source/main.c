@@ -29,12 +29,12 @@ int main( void )
   }
 }
 
-void Delay(__IO uint32_t nTicks)
-{
-	//long unsigned endTB = SysTickCount+nTime_ms;
-	//while( SysTickCount < endTB );
-	
-	TimingDelay = nTicks;
-	while(TimingDelay != 0);
-}
+//void Delay(__IO uint32_t nTicks)
+//{
+//	//long unsigned endTB = SysTickCount+nTime_ms;
+//	//while( SysTickCount < endTB );
+//	
+//	TimingDelay = nTicks;
+//	while(TimingDelay != 0);
+//}
 

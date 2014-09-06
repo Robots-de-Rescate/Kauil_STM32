@@ -2,19 +2,19 @@
 SRCS = main.c errno.c stm32f3_discovery.c system_stm32f30x.c
 
 # all the files will be generated with this name (main.elf, main.bin, main.hex, etc)
-PROJ_NAME=main
+PROJ_NAME=Kauil_STM32
 
 # Location of the Libraries folder from the STM32F0xx Standard Peripheral Library
-STD_PERIPH_LIB=Libraries
+STD_PERIPH_LIB=Source
 
 # Location of the linker scripts
 LDSCRIPT_INC=Device/ldscripts
 
 # location of OpenOCD Board .cfg files (only used with 'make program')
-OPENOCD_BOARD_DIR=/home/matt/bin/openocd/share/openocd/scripts/board
+OPENOCD_BOARD_DIR=/usr/local/share/openocd/scripts/board
 
 # Configuration (cfg) file containing programming directives for OpenOCD
-OPENOCD_PROC_FILE=extra/stm32f3-openocd.cfg
+OPENOCD_PROC_FILE=openOCD_flash.cfg
 
 # that's it, no need to change anything below this line!
 
@@ -38,14 +38,25 @@ LDFLAGS += -Wl,--gc-sections -Wl,-Map=$(PROJ_NAME).map
 vpath %.a $(STD_PERIPH_LIB)
 
 ROOT=$(shell pwd)
+CFLAGS += -I Source/
+CFLAGS += -I Source/Misc
+CFLAGS += -I Source/ROS_USB
+CFLAGS += -I Source/USB_ApplicationInterface
+CFLAGS += -I Source/CMSIS/Include
+CFLAGS += -I Source/CMSIS/Device/ST/STM32F30x/Include
+CFLAGS += -I Source/STM32_USB-FS-Device_Driver/inc
+CFLAGS += -I Source/Orientation
+CFLAGS += -I Source/STM32F30x_StdPeriph_Driver/inc
+CFLAGS += -I Source/Encoders
 
-CFLAGS += -I inc 
-CFLAGS += -I $(STD_PERIPH_LIB) 
-CFLAGS += -I $(STD_PERIPH_LIB)/CMSIS/Device/ST/STM32F30x/Include
-CFLAGS += -I $(STD_PERIPH_LIB)/CMSIS/Include 
-CFLAGS += -I $(STD_PERIPH_LIB)/STM32F30x_StdPeriph_Driver/inc
-CFLAGS += -I $(STD_PERIPH_LIB)/STM32_USB-FS-Device_Driver/inc
-CFLAGS += -include $(STD_PERIPH_LIB)/stm32f30x_conf.h
+#CFLAGS += -I inc 
+#CFLAGS += -I $(STD_PERIPH_LIB)/**
+#CFLAGS += -I $(STD_PERIPH_LIB)/USB_ApplicationInterface
+#CFLAGS += -I $(STD_PERIPH_LIB)/CMSIS/Device/ST/STM32F30x/Include
+#CFLAGS += -I $(STD_PERIPH_LIB)/CMSIS/Include
+#CFLAGS += -I $(STD_PERIPH_LIB)/STM32F30x_StdPeriph_Driver/inc
+#CFLAGS += -I $(STD_PERIPH_LIB)/STM32_USB-FS-Device_Driver/inc
+CFLAGS += -include Source/stm32f30x_conf.h
 
 STARTUP = Device/startup_stm32f30x.s # add startup file to build
 
@@ -60,7 +71,7 @@ DEPS = $(addprefix deps/,$(SRCS:.c=.d))
 
 .PHONY: all lib proj program debug clean reallyclean
 
-all: lib proj
+all: proj
 
 -include $(DEPS)
 
@@ -73,18 +84,30 @@ dirs:
 	mkdir -p deps objs
 	touch dirs
 
-objs/%.o : src/%.c dirs
-	$(CC) $(CFLAGS) -c -o $@ $< -MMD -MF deps/$(*F).d
+VPATH = $(shell find Source -type d)
+SOURCES = $(shell find Source -name "*.c")
+CFILES = $(filter %.c, $(SOURCES))
+OBJECTS = $(addprefix Output/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
 
-$(PROJ_NAME).elf: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ $(STARTUP) -L$(STD_PERIPH_LIB) -lstm32f3 -L$(LDSCRIPT_INC) -Tstm32f3.ld
-	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
-	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
-	$(OBJDUMP) -St $(PROJ_NAME).elf >$(PROJ_NAME).lst
-	$(SIZE) $(PROJ_NAME).elf
+depend : $(OBJECTS)
+
+Output/%.o: %.c
+	#$(CC) $(CFLAGS) -c -o Output/$(@F) $< -MMD 
+	$(CC) $(CFLAGS) -c -o $@ $< -MMD 
+	
+
+#$(OBJECTS): Output/%.o : $(CFILES)
+#	$(CC) $(CFLAGS) -c -o $@ $< -MMD -MF deps/$(*F).d
+
+$(PROJ_NAME).elf: $(OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o Output/$(@F) $(STARTUP) -L$(STD_PERIPH_LIB)  -L$(LDSCRIPT_INC) -Tstm32f3.ld
+	$(OBJCOPY) -O ihex Output/$(PROJ_NAME).elf Output/$(PROJ_NAME).hex
+	$(OBJCOPY) -O binary Output/$(PROJ_NAME).elf Output/$(PROJ_NAME).bin
+	$(OBJDUMP) -St Output/$(PROJ_NAME).elf >Output/$(PROJ_NAME).lst
+	$(SIZE) Output/$(PROJ_NAME).elf
 
 program: all
-	openocd -f $(OPENOCD_BOARD_DIR)/stm32f3discovery.cfg -f $(OPENOCD_PROC_FILE) -c "stm_flash `pwd`/$(PROJ_NAME).bin" -c shutdown
+	openocd -f $(OPENOCD_BOARD_DIR)/stm32f3discovery.cfg -f $(OPENOCD_PROC_FILE) -c "stm_flash `pwd`/Output/$(PROJ_NAME).bin" -c shutdown
 
 debug: program
 	$(GDB) -x extra/gdb_cmds $(PROJ_NAME).elf
