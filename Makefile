@@ -110,7 +110,7 @@ program: all
 	openocd -f $(OPENOCD_BOARD_DIR)/stm32f3discovery.cfg -f $(OPENOCD_PROC_FILE) -c "stm_flash `pwd`/Output/$(PROJ_NAME).bin" -c shutdown
 
 debug: program
-	$(GDB) -x extra/gdb_cmds $(PROJ_NAME).elf
+	$(GDB) -x extra/gdb_cmds Output/$(PROJ_NAME).elf
 
 clean:
 	find ./ -name '*~' | xargs rm -f	
