@@ -6,6 +6,7 @@
 #include "usb_lib.h"
 #include "hw_config.h"
 #include "ROS_USB.h"
+#include "MD03.h"
 
 
 extern long unsigned SysTickCount;

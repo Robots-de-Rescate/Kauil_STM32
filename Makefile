@@ -48,6 +48,7 @@ CFLAGS += -I Source/STM32_USB-FS-Device_Driver/inc
 CFLAGS += -I Source/Orientation
 CFLAGS += -I Source/STM32F30x_StdPeriph_Driver/inc
 CFLAGS += -I Source/Encoders
+CFLAGS += -I Source/MD03
 
 #CFLAGS += -I inc 
 #CFLAGS += -I $(STD_PERIPH_LIB)/**
@@ -64,8 +65,10 @@ STARTUP = Device/startup_stm32f30x.s # add startup file to build
 #SRCS += stm32f0_discovery.c
 #SRCS += stm32f0_discovery.c stm32f0xx_it.c
 
-OBJS = $(addprefix objs/,$(SRCS:.c=.o))
-DEPS = $(addprefix deps/,$(SRCS:.c=.d))
+SOURCES = $(shell find Source -name "*.c")
+#OBJS = $(addprefix objs/,$(SRCS:.c=.o))
+OBJECTS = $(addprefix Output/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
+DEPS = $(addprefix Output/,$(SOURCES:.c=.d))
 
 ###################################################
 
@@ -85,9 +88,7 @@ dirs:
 	touch dirs
 
 VPATH = $(shell find Source -type d)
-SOURCES = $(shell find Source -name "*.c")
-CFILES = $(filter %.c, $(SOURCES))
-OBJECTS = $(addprefix Output/, $(notdir $(patsubst %.c, %.o, $(SOURCES))))
+#CFILES = $(filter %.c, $(SOURCES))
 
 depend : $(OBJECTS)
 
