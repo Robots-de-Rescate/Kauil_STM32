@@ -26,7 +26,7 @@ OBJCOPY=arm-none-eabi-objcopy
 OBJDUMP=arm-none-eabi-objdump
 SIZE=arm-none-eabi-size
 
-CFLAGS  = -Wall -g -std=c99 -Os  
+CFLAGS  = -Wall -g -std=c99 -O0  
 CFLAGS += -mlittle-endian -mcpu=cortex-m4  -march=armv7e-m -mthumb
 CFLAGS += -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 CFLAGS += -ffunction-sections -fdata-sections
@@ -101,7 +101,7 @@ Output/%.o: %.c
 #	$(CC) $(CFLAGS) -c -o $@ $< -MMD -MF deps/$(*F).d
 
 $(PROJ_NAME).elf: $(OBJECTS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o Output/$(@F) $(STARTUP) -L$(STD_PERIPH_LIB)  -L$(LDSCRIPT_INC) -Tstm32f3.ld
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o Output/$(@F) $(STARTUP) -L$(STD_PERIPH_LIB)  -L$(LDSCRIPT_INC) -Tstm32f3.ld -gstabs
 	$(OBJCOPY) -O ihex Output/$(PROJ_NAME).elf Output/$(PROJ_NAME).hex
 	$(OBJCOPY) -O binary Output/$(PROJ_NAME).elf Output/$(PROJ_NAME).bin
 	$(OBJDUMP) -St Output/$(PROJ_NAME).elf >Output/$(PROJ_NAME).lst
