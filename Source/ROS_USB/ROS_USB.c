@@ -52,9 +52,11 @@ void sendROSData(char ID, int data1, int data2, float data3)
 
 void ROS_recieve_msg( struct ROSDataDef *msg  )
 {
+    Receive_length  = 0;
     if ( msg->ID == 'm' )
     {
-        motors_speed(msg->data1, msg->data2);
+        sendROSData('h', msg->data1, msg->data2, 0);
+        //motors_speed(msg->data1, msg->data2);
     }
 
 }

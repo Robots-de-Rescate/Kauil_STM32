@@ -15,17 +15,16 @@ int main( void )
 	
 	Set_System();
   USB_init();
-  MD03_Init();
-	
-	/* SysTick end of count event each 10ms */
-  RCC_GetClocksFreq(&RCC_Clocks);
-  SysTick_Config(RCC_Clocks.HCLK_Frequency / 100);
+  //MD03_Init();
+    
+  /* SysTick end of count event each 10ms */
+  //RCC_GetClocksFreq(&RCC_Clocks);
+  //SysTick_Config(RCC_Clocks.HCLK_Frequency / 100);
 
-  Demo_CompassConfig();
+  //Demo_CompassConfig();
 	
-  while (1)
-	{
-		sendROSData('a',12,i,12.01);
+  while (1) {
+		//sendROSData('a',12,i,12.01);
         i++;
   }
 }
