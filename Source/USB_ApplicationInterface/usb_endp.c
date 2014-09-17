@@ -75,6 +75,7 @@ void EP3_OUT_Callback(void)
   Receive_length = GetEPRxCount(ENDP3);
   PMAToUserBufferCopy((unsigned char*)Receive_Buffer, ENDP3_RXADDR, Receive_length);
   ROS_recieve_msg( (struct ROSDataDef *) &Receive_Buffer );
+  SetEPRxValid(ENDP3);
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
