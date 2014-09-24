@@ -1,12 +1,15 @@
 /* Includes ------------------------------------------------------------------*/
 #include "ROS_USB.h"
 
+
 /* Variables ---------------------------------------------------------*/
 extern __IO uint8_t Receive_Buffer[64];
 extern __IO  uint32_t Receive_length ;
 extern __IO  uint32_t Send_length ;
 uint32_t packet_sent = 0;
 uint32_t packet_receive = 0;
+
+
 
 
 struct __attribute__ ((__packed__)) ROSDataDef //Definition of the structure for sending the data to ROS 
@@ -58,4 +61,5 @@ void sendROSData(char ID, int data1, int data2, float data3)
 		}
 	}
 	
+
 	

@@ -141,7 +141,7 @@
             <RestoreToolbox>1</RestoreToolbox>
             <RestoreTracepoints>1</RestoreTracepoints>
             <RestoreSysVw>1</RestoreSysVw>
-            <UsePdscDebugDescription>1</UsePdscDebugDescription>
+            <UsePdscDebugDescription>0</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>11</TargetSelection>
@@ -362,7 +362,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\Source;.\Source\STM32F30x_StdPeriph_Driver\inc;.\Source\STM32_USB-FS-Device_Driver\inc;.\Source\USB_ApplicationInterface;.\Source\Orientation;.\Source\ROS_USB</IncludePath>
+              <IncludePath>.\Source;.\Source\STM32F30x_StdPeriph_Driver\inc;.\Source\STM32_USB-FS-Device_Driver\inc;.\Source\USB_ApplicationInterface;.\Source\Orientation;.\Source\ROS_USB;.\Source\Timers</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -672,6 +672,16 @@
               <FileName>ROS_USB.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Source\ROS_USB\ROS_USB.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Timers</GroupName>
+          <Files>
+            <File>
+              <FileName>timers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\timers.c</FilePath>
             </File>
           </Files>
         </Group>
