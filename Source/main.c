@@ -7,15 +7,16 @@ long unsigned SysTickCountl;
 __IO uint32_t TimingDelay = 0;
 __IO uint32_t UserButtonPressed = 0;
 __IO float HeadingValue = 0.0f;  
-int i = 0;
+int i, y = 0;
+uint8_t * x;
 
 	
 int main( void )
 {
 	
-	Set_System();
-  USB_init();
-  //MD03_Init();
+  Set_System();
+  //USB_init();
+  MD03_Init();
     
   /* SysTick end of count event each 10ms */
   //RCC_GetClocksFreq(&RCC_Clocks);
@@ -25,7 +26,9 @@ int main( void )
 	
   while (1) {
 		//sendROSData('a',12,i,12.01);
-        i++;
+        i = MD03_Read(0xB2, 7, x, 1);
+        y = *x; 
+
   }
 }
 

@@ -307,7 +307,9 @@ static void SetSysClock(void)
 
   /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration -----------*/
   /* Enable HSE */
-  RCC->CR |= ((uint32_t)RCC_CR_HSEON);
+  RCC->CR |= ((uint32_t)0x00050000);
+  //RCC->CR |= ((uint32_t)RCC_CR_HSEON | (uint32_t)RCC_CR_HSEBYP);
+  //RCC->CR |= ((uint32_t)RCC_CR_HSEON);
  
   /* Wait till HSE is ready and if Time out is reached exit */
   do

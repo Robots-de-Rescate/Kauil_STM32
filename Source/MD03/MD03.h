@@ -13,16 +13,16 @@
 #define MD03_I2C                       I2C2
 #define MD03_I2C_CLK                   RCC_APB1Periph_I2C2
 
-#define MD03_I2C_SCK_PIN               GPIO_Pin_0                  /* PF.0 */
+#define MD03_I2C_SCK_PIN               GPIO_Pin_1                  /* PF.1 */
 #define MD03_I2C_SCK_GPIO_PORT         GPIOF                       /* GPIOF */
 #define MD03_I2C_SCK_GPIO_CLK          RCC_AHBPeriph_GPIOF
-#define MD03_I2C_SCK_SOURCE            GPIO_PinSource0
+#define MD03_I2C_SCK_SOURCE            GPIO_PinSource1
 #define MD03_I2C_SCK_AF                GPIO_AF_4
 
-#define MD03_I2C_SDA_PIN               GPIO_Pin_1                  /* PF.1 */
+#define MD03_I2C_SDA_PIN               GPIO_Pin_0                  /* PF.0 */
 #define MD03_I2C_SDA_GPIO_PORT         GPIOF                       /* GPIOF */
 #define MD03_I2C_SDA_GPIO_CLK          RCC_AHBPeriph_GPIOF
-#define MD03_I2C_SDA_SOURCE            GPIO_PinSource1
+#define MD03_I2C_SDA_SOURCE            GPIO_PinSource0
 #define MD03_I2C_SDA_AF                GPIO_AF_4
 
 void MD03_Init(void);
