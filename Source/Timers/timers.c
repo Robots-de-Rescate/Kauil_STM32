@@ -1,4 +1,5 @@
 #include "timers.h"
+
 void (*func[10])(void);
 int tim[10];
 int contadores[10];
@@ -25,15 +26,14 @@ void setTimer(void (*function)(void), int timer)
 	
 void TIM3_IRQHandler (void) 
 	{
-	
-	if(TIM3->SR & TIM_SR_UIF) {
+	if(TIM3->SR & TIM_SR_UIF) 
+		{
 		TIM3->SR &= ~TIM_SR_UIF; 
 		contadores[0] ++;
 		if(contadores[0] == tim[0])
-		{
+			{
 			func[0]();
 			contadores[0] = 0;
+			}
 		}
-			
-}
-}
+	}

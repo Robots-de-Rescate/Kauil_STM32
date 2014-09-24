@@ -2,10 +2,10 @@
 
 void timer3Config();
 long unsigned SysTickCountl;
+
 /////Funcion de prueba
 void sendData(void);
 //// lineas de prueba
-
 
 
   RCC_ClocksTypeDef RCC_Clocks;
@@ -13,11 +13,7 @@ __IO uint32_t TimingDelay = 0;
 __IO uint32_t UserButtonPressed = 0;
 __IO float HeadingValue = 0.0f;  
 
-int contador = 0;
 
-// Variables para los timers de los sensores
-//int timers[3] = {2000,0,0};
-//int contadores[3] = {0,0,0};
 	
 int main( void )
 {
@@ -28,13 +24,12 @@ int main( void )
 	
 	
 	//Lineas de prueba
-	void (*function)(void) = &sendData;
+	//void (*function)(void) = &sendData;
 	//
 	
 	
 	Set_System();
   USB_init();
-	
 	timer3Config();
 	
 		
@@ -44,7 +39,7 @@ int main( void )
 
   Demo_CompassConfig();
 	
-	setTimer(function,2000);
+	setTimer(sendData,2000);
 	while (1);
 }
 
@@ -53,8 +48,6 @@ void sendData(void){
 	sendROSData('c',12,12,1.0);
 }
 ///LIneas de prueba
-
-
 
 
 void Delay(__IO uint32_t nTicks)

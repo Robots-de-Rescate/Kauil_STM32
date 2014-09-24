@@ -681,7 +681,7 @@
             <File>
               <FileName>timers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\timers.c</FilePath>
+              <FilePath>.\Source\Timers\timers.c</FilePath>
             </File>
           </Files>
         </Group>
