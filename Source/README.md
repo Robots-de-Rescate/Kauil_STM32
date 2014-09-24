@@ -28,6 +28,12 @@ The folders and files that are found here are described next, if a new module is
 	<dd>Reads the quadrature encoders to enable the calculation of the odometry.</dd>
 	<dt>Misc</dt>
 	<dd>This folder is used to store small snippets of code that are not complete module, adding code here must not be a common practice.</dd>
+	<dt>Ros_USB</dt>
+	<dd>This directory contains the library that enable the comunication between the microcontroller and ROS. Open Kauil_STM32/Source/Ros_USB/README.md in order to have a more detail description.</dd>
+	<dt>Timers</dt>       
+ 	 <dd>This directory contains the library that enables the configuration of the Timer 3,at the library it is also dfefined a function that calls a specified function (argument #1) in a specified time (argument #2). Open Kauil_STM32/Source/Timers/README.md for a more detail information of the library.</dd>
+
+
 </dl>
 
 Modules
