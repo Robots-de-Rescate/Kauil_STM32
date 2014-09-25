@@ -3,7 +3,7 @@
 #include "stm32f30x.h"
 #include <stdio.h>
 //#include "orientation.h"
-//#include "usb_lib.h"
+#include "usb_lib.h"
 #include "hw_config.h"
 //#include "ROS_USB.h"
 #include "MD03.h"

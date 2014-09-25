@@ -55,13 +55,26 @@ void receiveROSData( struct ROSDataDef *msg  )
     Receive_length  = 0;
     if ( msg->ID == 'm' )
     {
-        set_motors_speed(msg->data1, msg->data2);
-    }
-    else if ( msg->ID == 's' ){
-
-        
         sendROSData('h', msg->data1, msg->data2, 0);
+        //set_motors_speed(msg->data1, msg->data2);
     }
+    else if ( msg->ID == 'a' ){
+        uint8_t data; 
+        data = (uint8_t)(msg->data1);
 
+        MD03_Write(0xB2, 2, &data);
+    }
+    else if ( msg->ID == 'b' ){
+        uint8_t data;
+
+        MD03_Read(0xB2, 7, &data, 1);
+        sendROSData('7', (int)data, 0, 0);
+    }
+    else if ( msg->ID == 'c' ){
+        uint8_t data;
+
+        MD03_Read(0xB2, 2, &data, 1);
+        sendROSData('2', (int)data, 0, 0);
+    }
 }
 	
