@@ -19,7 +19,7 @@
 #define MD03_I2C_SCK_SOURCE            GPIO_PinSource1
 #define MD03_I2C_SCK_AF                GPIO_AF_4
 
-#define MD03_I2C_SDA_PIN               GPIO_Pin_10                 /* PF.10 */
+#define MD03_I2C_SDA_PIN               GPIO_Pin_10                 /* PA.10 */
 #define MD03_I2C_SDA_GPIO_PORT         GPIOA                       /* GPIOA */
 #define MD03_I2C_SDA_GPIO_CLK          RCC_AHBPeriph_GPIOA
 #define MD03_I2C_SDA_SOURCE            GPIO_PinSource10
@@ -29,4 +29,4 @@ void MD03_Init(void);
 uint16_t MD03_Write(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t* pBuffer);
 uint16_t MD03_Read(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t* pBuffer, uint16_t NumByteToRead);
 void set_motor_speed(uint8_t MD03_Address, uint8_t speed, uint8_t direction);
-void motors_speed(int32_t left_speed, int32_t right_speed);
+void set_motors_speed(int32_t left_speed, int32_t right_speed);

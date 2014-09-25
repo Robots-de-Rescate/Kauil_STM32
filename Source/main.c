@@ -7,8 +7,8 @@ long unsigned SysTickCountl;
 __IO uint32_t TimingDelay = 0;
 __IO uint32_t UserButtonPressed = 0;
 __IO float HeadingValue = 0.0f;  
-int i, y = 0;
-uint8_t * x;
+int i = 0;
+uint8_t y = 0;
 
 	
 int main( void )
@@ -26,8 +26,10 @@ int main( void )
 	
   while (1) {
 		//sendROSData('a',12,i,12.01);
-        i = MD03_Read(0xB2, 7, x, 1);
-        y = *x; 
+        y = 120;
+        i = MD03_Write(0xB2, 2, &y); // writing 120 to register 2
+        i = MD03_Read(0xB2, 7, &y, 1); // y should be 13
+        i = MD03_Read(0xB2, 2, &y, 1); // y should read 120 
 
   }
 }

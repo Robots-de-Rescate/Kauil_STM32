@@ -11,8 +11,6 @@ void MD03_Init(void)
   /* Enable SCK and SDA GPIO clocks */
   RCC_AHBPeriphClockCmd(MD03_I2C_SCK_GPIO_CLK | MD03_I2C_SDA_GPIO_CLK , ENABLE);
   
-  GPIO_PinAFConfig(MD03_I2C_SCK_GPIO_PORT, MD03_I2C_SCK_SOURCE, MD03_I2C_SCK_AF);
-  GPIO_PinAFConfig(MD03_I2C_SDA_GPIO_PORT, MD03_I2C_SDA_SOURCE, MD03_I2C_SDA_AF);
   
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
@@ -26,6 +24,9 @@ void MD03_Init(void)
   /* I2C SDA pin configuration */
   GPIO_InitStructure.GPIO_Pin =  MD03_I2C_SDA_PIN;
   GPIO_Init(MD03_I2C_SDA_GPIO_PORT, &GPIO_InitStructure);
+
+  GPIO_PinAFConfig(MD03_I2C_SCK_GPIO_PORT, MD03_I2C_SCK_SOURCE, MD03_I2C_SCK_AF);
+  GPIO_PinAFConfig(MD03_I2C_SDA_GPIO_PORT, MD03_I2C_SDA_SOURCE, MD03_I2C_SDA_AF);
   
   /* I2C configuration -------------------------------------------------------*/
   I2C_InitStructure.I2C_Mode = I2C_Mode_I2C;
@@ -47,51 +48,31 @@ void MD03_Init(void)
 uint16_t MD03_Write(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t* pBuffer)
 {  
   ///* Test on BUSY Flag */
-  //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_BUSY) != RESET)
-  {
-  //  if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_BUSY) != RESET);
   
   /* Configure slave address, nbytes, reload, end mode and start or stop generation */
   I2C_TransferHandling(MD03_I2C, DeviceAddr, 1, I2C_Reload_Mode, I2C_Generate_Start_Write);
   
   /* Wait until TXIS flag is set */
-  //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;  
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TXIS) == RESET)   
-  {
-    //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TXIS) == RESET);
   
   /* Send Register address */
   I2C_SendData(MD03_I2C, (uint8_t) RegAddr);
   
   /* Wait until TCR flag is set */
-  //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TCR) == RESET)
-  {
-    //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TCR) == RESET);
   
   /* Configure slave address, nbytes, reload, end mode and start or stop generation */
   I2C_TransferHandling(MD03_I2C, DeviceAddr, 1, I2C_AutoEnd_Mode, I2C_No_StartStop);
        
   /* Wait until TXIS flag is set */
-  //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TXIS) == RESET)
-  {
-    //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }  
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TXIS) == RESET);
     
   /* Write data to TXDR */
   I2C_SendData(MD03_I2C, *pBuffer);
       
   /* Wait until STOPF flag is set */
-  //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_STOPF) == RESET)
-  {
-    //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }   
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_STOPF) == RESET);
   
   /* Clear STOPF flag */
   I2C_ClearFlag(MD03_I2C, I2C_ICR_STOPCF);
@@ -102,35 +83,22 @@ uint16_t MD03_Write(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t* pBuffer)
 uint16_t MD03_Read(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t* pBuffer, uint16_t NumByteToRead)
 {    
   /* Test on BUSY Flag */
-  //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_BUSY) != RESET)
-  {
-    //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_BUSY) != RESET); 
   
   /* Configure slave address, nbytes, reload, end mode and start or stop generation */
   I2C_TransferHandling(MD03_I2C, DeviceAddr, 1, I2C_SoftEnd_Mode, I2C_Generate_Start_Write);
   
   /* Wait until TXIS flag is set */
-  //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TXIS) == RESET)
-  {
-    //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TXIS) == RESET);
   
   if(NumByteToRead>1)
       RegAddr |= 0x80;
-
   
   /* Send Register address */
   I2C_SendData(MD03_I2C, (uint8_t)RegAddr);
   
   /* Wait until TC flag is set */
-  //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TC) == RESET)
-  {
-    //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }  
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_TC) == RESET);
   
   /* Configure slave address, nbytes, reload, end mode and start or stop generation */
   I2C_TransferHandling(MD03_I2C, DeviceAddr, NumByteToRead, I2C_AutoEnd_Mode, I2C_Generate_Start_Read);
@@ -140,10 +108,7 @@ uint16_t MD03_Read(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t* pBuffer, uint16
   {   
     /* Wait until RXNE flag is set */
     //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-    while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_RXNE) == RESET)    
-    {
-      //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-    }
+    while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_RXNE) == RESET);
     
     /* Read data from RXDR */
     *pBuffer = I2C_ReceiveData(MD03_I2C);
@@ -156,10 +121,7 @@ uint16_t MD03_Read(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t* pBuffer, uint16
   
   /* Wait until STOPF flag is set */
   //LSM303DLHC_Timeout = LSM303DLHC_LONG_TIMEOUT;
-  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_STOPF) == RESET)   
-  {
-    //if((LSM303DLHC_Timeout--) == 0) return LSM303DLHC_TIMEOUT_UserCallback();
-  }
+  while(I2C_GetFlagStatus(MD03_I2C, I2C_ISR_STOPF) == RESET);
   
   /* Clear STOPF flag */
   I2C_ClearFlag(MD03_I2C, I2C_ICR_STOPCF);
@@ -175,7 +137,7 @@ void set_motor_speed(uint8_t MD03_Address, uint8_t speed, uint8_t direction) {
     
 }
 
-void motors_speed(int32_t left_speed, int32_t right_speed){
+void set_motors_speed(int32_t left_speed, int32_t right_speed){
     uint8_t left_direction = 1;
     uint8_t right_direction = 1;
 
