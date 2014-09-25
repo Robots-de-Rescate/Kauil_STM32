@@ -15,7 +15,7 @@ int main( void )
 {
 	
   Set_System();
-  //USB_init();
+  USB_init();
   MD03_Init();
     
   /* SysTick end of count event each 10ms */
@@ -26,10 +26,7 @@ int main( void )
 	
   while (1) {
 		//sendROSData('a',12,i,12.01);
-        y = 120;
-        i = MD03_Write(0xB2, 2, &y); // writing 120 to register 2
-        i = MD03_Read(0xB2, 7, &y, 1); // y should be 13
-        i = MD03_Read(0xB2, 2, &y, 1); // y should read 120 
+      i++;
 
   }
 }

@@ -50,13 +50,17 @@ void sendROSData(char ID, int data1, int data2, float data3)
     }
 }
 
-void ROS_recieve_msg( struct ROSDataDef *msg  )
+void receiveROSData( struct ROSDataDef *msg  )
 {
     Receive_length  = 0;
     if ( msg->ID == 'm' )
     {
+        set_motors_speed(msg->data1, msg->data2);
+    }
+    else if ( msg->ID == 's' ){
+
+        
         sendROSData('h', msg->data1, msg->data2, 0);
-        //motors_speed(msg->data1, msg->data2);
     }
 
 }
