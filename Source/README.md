@@ -7,7 +7,7 @@ Files that are not in any folder provide configuration and function definitions 
 
 Because the idea is to write reusable code, it is expected that any new module will be added like a new folder with a meaningful name and not as spare files.
 
-The folders and files that are found here are described next, if a new module is create, be sure to add its description here too:
+The folders and files that are found here are described next, if a new module is created, be sure to add its description here too:
 
 <dl>
 	<dt>README.md</dt>
@@ -38,9 +38,9 @@ The folders and files that are found here are described next, if a new module is
 
 Modules
 ----------
-A module is some piece of code that has a common functionality to the system, it consists of a folder with all the source files needed for int inside.
+A module is some piece of code that has a specific functionality to the system, it consists of a folder with all the source files needed for int inside.
 
-The name of the folder should provide a clear, simple an unambiguous description of the functionality of the source code in it. Inside the folder there must be at least 2 source files (one .c and a .h) with the same name as the folder, this include file should be the only one that needs to be added to the main.c file in order to use the functionality of this module.
+The name of the folder should provide a clear, simple an unambiguous description of the functionality of the source code in it. Inside the folder there must be at least 2 source files (one .c and a .h) with the same name as the folder, this include file should be the only one that needs to be added to the main.c file in order to use the this module.
 
 ###Adding a new module
 
@@ -74,7 +74,7 @@ Now write the code for the module and have fun debugging :)
 Coding standards
 --------------------
 
-These the main points we think are important for the code to be readable and usable by multiple developers working on it:
+These are the main points we think are important for the code to be readable and usable by multiple developers working on it:
 
 - Every module must contain at least a .h and a .c file both with the same name of the module, this will be the main interface for someone trying to use it, an thus it must contain every function that is expected to be usable externally.
 - The header file named after the module is expected to contain the prototypes that will be defined in the .c file, as well as a description of its functionality and the arguments it uses.
