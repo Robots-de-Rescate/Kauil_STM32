@@ -12,43 +12,29 @@ void sendData(void);
 __IO uint32_t TimingDelay = 0;
 __IO uint32_t UserButtonPressed = 0;
 __IO float HeadingValue = 0.0f;  
+int i = 0;
+uint8_t y = 0;
 
 
 	
 int main( void )
 {
 
-	float *heading_ptr;
-	float heading;
-	float compas;
-	
-	
-	//Lineas de prueba
-	//void (*function)(void) = &sendData;
-	//
-	
-	
-	Set_System();
+  Set_System();
   USB_init();
-	timer3Config();
+  timer3Config();
+  MD03_Init();
 	
-		
-	/* SysTick end of count event each 10ms */
-  RCC_GetClocksFreq(&RCC_Clocks);
-  SysTick_Config(RCC_Clocks.HCLK_Frequency / 100);
+  /* SysTick end of count event each 10ms */
+  //RCC_GetClocksFreq(&RCC_Clocks);
+  //SysTick_Config(RCC_Clocks.HCLK_Frequency / 100);
 
   Demo_CompassConfig();
 	
-	setTimer(sendData,2000);
-	while (1);
+  while (1)
+	{
+  }
 }
-
-////funcion de prueba
-void sendData(void){
-	sendROSData('c',12,12,1.0);
-}
-///LIneas de prueba
-
 
 //void Delay(__IO uint32_t nTicks)
 //{
@@ -58,7 +44,4 @@ void sendData(void){
 //	TimingDelay = nTicks;
 //	while(TimingDelay != 0);
 //}
-
-
-
 
