@@ -17,6 +17,8 @@
 *.uvopt
 
 Output/
+LinuxWorkspace/breakpoints
+LinuxWorkspace/openocd.log
 *~
 
 .DS_Store
