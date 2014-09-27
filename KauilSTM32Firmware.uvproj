@@ -128,7 +128,6 @@
             <RestoreFunctions>1</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
             <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
-            <RestoreSysVw>1</RestoreSysVw>
           </Simulator>
           <Target>
             <UseTarget>1</UseTarget>
@@ -140,7 +139,6 @@
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
             <RestoreTracepoints>1</RestoreTracepoints>
-            <RestoreSysVw>1</RestoreSysVw>
             <UsePdscDebugDescription>0</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
@@ -502,6 +500,11 @@
               <FileName>orientation.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Source\Orientation\orientation.c</FilePath>
+            </File>
+            <File>
+              <FileName>imu_devs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\Orientation\imu_devs.c</FilePath>
             </File>
           </Files>
         </Group>
