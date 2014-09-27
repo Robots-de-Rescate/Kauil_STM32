@@ -19,11 +19,12 @@ uint32_t packet_receive = 0;
 * Input          : None.
 * Return         : None.
 *******************************************************************************/
-void USB_init(void){
-	Set_USBClock();
+void USB_init(void)
+{
+  Set_USBClock();
   USB_Interrupts_Config();
   USB_Init();
-	}
+}
 
 /*******************************************************************************
 * Function Name  : (sendROSData)
@@ -50,14 +51,12 @@ void sendROSData(char ID, int data1, int data2, float data3)
     }
 }
 
-void ROS_recieve_msg( struct ROSDataDef *msg  )
+void receiveROSData(struct ROSDataDef *msg)
 {
     Receive_length  = 0;
     if ( msg->ID == 'm' )
     {
-        sendROSData('h', msg->data1, msg->data2, 0);
-        //motors_speed(msg->data1, msg->data2);
+        set_motors_speed(msg->data1, msg->data2);
     }
-
 }
-	
+

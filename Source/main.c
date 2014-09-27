@@ -3,11 +3,6 @@
 void timer3Config();
 long unsigned SysTickCountl;
 
-/////Funcion de prueba
-void sendData(void);
-//// lineas de prueba
-
-
   RCC_ClocksTypeDef RCC_Clocks;
 __IO uint32_t TimingDelay = 0;
 __IO uint32_t UserButtonPressed = 0;
