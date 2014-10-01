@@ -17,7 +17,6 @@
 float MagBuffer[3] = {0.0f}, AccBuffer[3] = {0.0f}, Buffer[3] = {0.0f};
 uint8_t Xval, Yval = 0x00;
 
-
 float readMag(void)
 {
 	float fNormAcc,fSinRoll,fCosRoll,fSinPitch,fCosPitch = 0.0f, RollAng = 0.0f, PitchAng = 0.0f;
@@ -98,7 +97,14 @@ float readMag(void)
   return (float) ((atan2f((float)fTiltedY,(float)fTiltedX))*180)/PI;
 }
 
-void Demo_CompassConfig(void)
+void sendCompassDataROS(void){
+    float heading = 0.0;
+
+    heading = readMag();
+    sendROSData('c', 0, 0, heading );
+}
+
+void compass_init(void)
 {
   LSM303DLHCMag_InitTypeDef LSM303DLHC_InitStructure;
   LSM303DLHCAcc_InitTypeDef LSM303DLHCAcc_InitStructure;
@@ -130,6 +136,7 @@ void Demo_CompassConfig(void)
 
   /* Configure the accelerometer LPF main parameters */
   LSM303DLHC_AccFilterConfig(&LSM303DLHCFilter_InitStructure);
+  setTimer( sendCompassDataROS, 170 );
 }
 
 void Demo_CompassReadMag (float* pfData)
