@@ -66,7 +66,7 @@ $(OUTDIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $< -MMD 
 	
 $(PROJ_NAME).elf: $(OBJECTS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $(OUTDIR)/$(@F) $(STARTUP) -L$(LDSCRIPT_INC) -Tstm32f3.ld -gstabs
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $(OUTDIR)/$(@F) $(STARTUP) -L$(LDSCRIPT_INC) -Tstm32f3.ld -gstabs -lm
 	$(OBJCOPY) -O ihex $(OUTDIR)/$(PROJ_NAME).elf $(OUTDIR)/$(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(OUTDIR)/$(PROJ_NAME).elf $(OUTDIR)/$(PROJ_NAME).bin
 	$(OBJDUMP) -St $(OUTDIR)/$(PROJ_NAME).elf >$(OUTDIR)/$(PROJ_NAME).lst
