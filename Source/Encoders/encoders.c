@@ -1,13 +1,10 @@
-#include <Encoders.h>
-#include <ROS_USB.h>
+#include "encoders.h"
+
 
 
 /* Variables ---------------------------------------------------------*/
 volatile int32_t rightEncoderTicks, leftEncoderTicks;
-struct encoders_ticks{
-    int right;
-    int left;
-};
+
 
 void EXTI_configure(void)
 {
@@ -64,17 +61,17 @@ struct encoders_ticks read_encoders()
     return result;
 }
 
-void start_encoder_counter (void)
-{
-	PB8_PB9_PF9_PF10configure();
-	EXTI_configure();
-
-}
-
 void send_data_encoders(void)
 {
 	
 	sendROSData(80, rightEncoderTicks, leftEncoderTicks, 0.0);
 	rightEncoderTicks=0;
 	leftEncoderTicks=0;
+}
+
+void encoders_init(void)
+{
+	PB8_PB9_PF9_PF10configure();
+	EXTI_configure();
+	setTimer(send_data_encoders, 100);
 }

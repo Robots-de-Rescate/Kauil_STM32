@@ -17,6 +17,7 @@ int main( void )
 
   Set_System();
   USB_init();
+	encoders_init();
   timer3Config();
   MD03_Init();
 	
