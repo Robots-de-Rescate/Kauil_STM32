@@ -690,6 +690,16 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>MD03</GroupName>
+          <Files>
+            <File>
+              <FileName>MD03.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Source\MD03\MD03.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>
