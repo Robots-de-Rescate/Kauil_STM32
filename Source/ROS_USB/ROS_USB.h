@@ -5,13 +5,7 @@
 #include "usb_pwr.h"
 #include "MD03.h"
 
-struct __attribute__ ((__packed__)) ROSDataDef //Definition of the structure for sending the data to ROS 
-{
-  char ID;
-  int data1;
-  int data2;
-  float data3;
-} __attribute__ ((aligned));
+struct __attribute__ ((__packed__)) ROSDataDef; //Declaration of the structure for sending the data to ROS 
 
 void USB_init(void);
 void sendROSData(char ID, int data1, int data2, float data3);

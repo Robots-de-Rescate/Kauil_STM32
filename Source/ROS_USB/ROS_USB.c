@@ -9,6 +9,13 @@ uint32_t packet_sent = 0;
 uint32_t packet_receive = 0;
 
 
+struct __attribute__ ((__packed__)) ROSDataDef //Definition of the structure for sending the data to ROS 
+{
+  char ID;
+  int data1;
+  int data2;
+  float data3;
+} __attribute__ ((aligned));
 
 //The attribute packed specifies that each member of the structure is placed to minimize the memory required(members are packed closely together)
 //The attribute aligned without argument is for specifying a minimum alignment to the sum of all the variables
