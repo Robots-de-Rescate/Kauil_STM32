@@ -6,7 +6,7 @@
 #include "stm32f30x_i2c.h"
 #include "stm32f30x.h"
 
-#define LEFT_MOTOR_ADDRESS 0xB1
+#define LEFT_MOTOR_ADDRESS 0xB0
 #define RIGHT_MOTOR_ADDRESS 0xB2
 
 /****************** PIN ASSIGNMENT **********************/
