@@ -64,7 +64,7 @@ struct encoders_ticks read_encoders()
 void send_data_encoders(void)
 {
 	
-	sendROSData(80, rightEncoderTicks, leftEncoderTicks, 0.0);
+	sendROSData('e', rightEncoderTicks, leftEncoderTicks, 0.0);
 	rightEncoderTicks=0;
 	leftEncoderTicks=0;
 }

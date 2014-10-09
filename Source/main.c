@@ -17,10 +17,10 @@ int main( void )
 
   Set_System();
   USB_init();
-  encoders_init();
   timer3Config();
   MD03_Init();
-  compass_init();
+	encoders_init();
+	compass_init();
 	
   /* SysTick end of count event each 10ms */
   //RCC_GetClocksFreq(&RCC_Clocks);

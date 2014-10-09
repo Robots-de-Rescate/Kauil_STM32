@@ -5,6 +5,7 @@ int tim[10];
 int contadores[10];
 int pos = 0;
 int c;
+int num;
 
 void timer3Config(void){
 	RCC->APB1ENR |= RCC_APB1ENR_TIM3EN; //TIM3 clock enable
@@ -30,7 +31,7 @@ void TIM3_IRQHandler (void)
 	if(TIM3->SR & TIM_SR_UIF) 
 		{
 		TIM3->SR &= ~TIM_SR_UIF; 
-			for(c = 0; c <= sizeof(contadores)/sizeof(contadores[0]); c++){
+			for(c = 0; c < pos; c++){
 				contadores[c] ++;
 				if(contadores[c] == tim[c])
 					{
