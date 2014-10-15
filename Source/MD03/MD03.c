@@ -142,14 +142,14 @@ void set_motors_speed(int32_t left_speed, int32_t right_speed){
     uint8_t right_direction = 1;
 
     if ( left_speed<0 ) {
-        left_speed += 255;
+        left_speed = -left_speed;
         left_direction = 2;
     }
 
     set_motor_speed(LEFT_MOTOR_ADDRESS, left_speed, left_direction);
 
     if ( right_speed<0 ) {
-        right_speed += 255;
+        right_speed = -right_speed;
         right_direction = 2;
     }
 
