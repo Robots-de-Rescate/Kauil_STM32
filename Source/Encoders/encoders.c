@@ -21,11 +21,13 @@ void EXTI9_5_IRQHandler (void)//interrupt for right & left encoders
 {
 	if (EXTI->PR &(1<<8))//interrupt for right encoder
 	{
+        //Note: When moving forward one motor moves clockwise while the
+        //other one moves counter-clockwise
 		EXTI->PR|=(1<<8);	//clear the pending bit of the interrupt
 		if(GPIOF->IDR&(1<<9))//reads the value in channel B of the encoder connected to PF9 
-		rightEncoderTicks=rightEncoderTicks+1;//B leads A (moving positive way)
+		rightEncoderTicks=rightEncoderTicks-1;//B leads A (moving positive way)
 		else
-		rightEncoderTicks=rightEncoderTicks-1;//A leads B (moving negative way)
+		rightEncoderTicks=rightEncoderTicks+1;//A leads B (moving negative way)
 	}
 	
 	if (EXTI->PR &(1<<9))//interrupt for left encoder
@@ -64,7 +66,7 @@ struct encoders_ticks read_encoders()
 void send_data_encoders(void)
 {
 	
-	sendROSData('e', rightEncoderTicks, leftEncoderTicks, 0.0);
+	sendROSData('e', leftEncoderTicks, rightEncoderTicks, 0.0);
 	rightEncoderTicks=0;
 	leftEncoderTicks=0;
 }
