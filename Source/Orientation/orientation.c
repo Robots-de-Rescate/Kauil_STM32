@@ -19,88 +19,19 @@ uint8_t Xval, Yval = 0x00;
 
 float readMag(void)
 {
-	float fNormAcc,fSinRoll,fCosRoll,fSinPitch,fCosPitch = 0.0f, RollAng = 0.0f, PitchAng = 0.0f;
-	float fTiltedX,fTiltedY = 0.0f;
-	int i;
-	
-	Demo_CompassReadMag(MagBuffer);
-	Demo_CompassReadAcc(AccBuffer);
-	
-	for(i=0;i<3;i++)
-		AccBuffer[i] /= 100.0f;
-	
-	fNormAcc = sqrt((AccBuffer[0]*AccBuffer[0])+(AccBuffer[1]*AccBuffer[1])+(AccBuffer[2]*AccBuffer[2]));
-	
-	fSinRoll = -AccBuffer[1]/fNormAcc;
-	fCosRoll = sqrt(1.0f-(fSinRoll * fSinRoll));
-	fSinPitch = AccBuffer[0]/fNormAcc;
-	fCosPitch = sqrt(1.0f-(fSinPitch * fSinPitch));
- if ( fSinRoll >0)
- {
-	 if (fCosRoll>0)
-	 {
-		 RollAng = acos(fCosRoll)*180/PI;
-	 }
-	 else
-	 {
-		 RollAng = acos(fCosRoll)*180/PI + 180;
-	 }
- }
- else
- {
-	 if (fCosRoll>0)
-	 {
-		 RollAng = acos(fCosRoll)*180/PI + 360;
-	 }
-	 else
-	 {
-		 RollAng = acos(fCosRoll)*180/PI + 180;
-	 }
- }
- 
-	if ( fSinPitch >0)
- {
-	 if (fCosPitch>0)
-	 {
-				PitchAng = acos(fCosPitch)*180/PI;
-	 }
-	 else
-	 {
-			PitchAng = acos(fCosPitch)*180/PI + 180;
-	 }
- }
- else
- {
-	 if (fCosPitch>0)
-	 {
-				PitchAng = acos(fCosPitch)*180/PI + 360;
-	 }
-	 else
-	 {
-			PitchAng = acos(fCosPitch)*180/PI + 180;
-	 }
- }
-
-	if (RollAng >=360)
-	{
-		RollAng = RollAng - 360;
-	}
-	
-	if (PitchAng >=360)
-	{
-		PitchAng = PitchAng - 360;
-	}
-	
-	fTiltedX = MagBuffer[0]*fCosPitch+MagBuffer[2]*fSinPitch;
-  fTiltedY = MagBuffer[0]*fSinRoll*fSinPitch+MagBuffer[1]*fCosRoll-MagBuffer[1]*fSinRoll*fCosPitch;
+  Demo_CompassReadMag(MagBuffer);
+  
+  // MagBuffer[0] -> X component
+  // MagBuffer[1] -> Y component
       
-  return (float) ((atan2f((float)fTiltedY,(float)fTiltedX))*180)/PI;
+  return (float) ((atan2f((float)MagBuffer[1],(float)MagBuffer[0]))*180)/PI;
 }
 
 void sendCompassDataROS(void){
     float heading = 0.0;
 
-    heading = readMag();
+    //The orientation of the board on the robot is opposite to how it's being calculated by readMag()
+    heading = -readMag();
     sendROSData('c', 0, 0, heading );
 }
 

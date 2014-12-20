@@ -664,10 +664,7 @@ static void LSM303DLHC_LowLevel_Init(void)
   */
 uint32_t LSM303DLHC_TIMEOUT_UserCallback(void)
 {
-  /* Block communication and all processes */
-  while (1)
-  {   
-  }
+  return 0;
 }
 #endif /* USE_DEFAULT_TIMEOUT_CALLBACK */
 
