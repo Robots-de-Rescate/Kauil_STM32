@@ -2,7 +2,7 @@ Kauil_STM32
 ===================
 
 
-This repository has the code for the V2 controller board of Kauil. It uses an STM32F3 microcontroller to interface the hardware peripherals to the Linux system on board of the robot.
+This repository has the code for the V2 controller board of Kauil. It uses an STM32F3 microcontroller to interface the hardware peripherals to the Linux system on board of the robot via USB. To start developing code for this project please read the [STM32 section](https://github.com/Robots-de-Rescate/wiki_general/wiki/Tutorials#stm32) before.
 
 Structure of the repository
 --------------------------------
