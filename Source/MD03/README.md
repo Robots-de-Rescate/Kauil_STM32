@@ -7,6 +7,15 @@ and letting people use the function set_motors_speed().
 --------------------------
 When you need to communicate to the MD03 boards to move Kauil.
 
+**Considerations.**
+-------------------
+The I2C addresses of the MD03 boards are hardcoded on the MD03.h file as follows:
+
+```
+#define LEFT_MOTOR_ADDRESS 0xB0
+#define RIGHT_MOTOR_ADDRESS 0xB2
+```
+
 **How to use it.**
 -------------
 Import the module MD03.h and call the function:
