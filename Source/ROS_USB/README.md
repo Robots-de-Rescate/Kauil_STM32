@@ -5,7 +5,7 @@ This library was made for communicating the microcontroller with ROS using a sim
 This library has also a function that packs all the functions needed for initialising the usb in one function. (**USB_init()**)
 
 The function **receiveROSData()** is automatically called by the USB peripheral everytime ROS sends a message
-so it wher actions upon received messages should be added debending on the ID.
+so it's where actions upon received messages should be added depending on the ID of the message.
 
 **When to use this library?**
 --------------------------
